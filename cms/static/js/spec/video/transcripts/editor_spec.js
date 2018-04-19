@@ -79,6 +79,7 @@ function($, Backbone, _, Utils, Editor, MetadataView, MetadataModel, MetadataCol
         describe('Test initialization', function() {
             beforeEach(function() {
                 spyOn(MetadataView, 'Editor');
+                spyOn(Editor.prototype, 'handleFieldChanged');
 
                 transcripts = new Editor({
                     el: $container
@@ -159,6 +160,7 @@ function($, Backbone, _, Utils, Editor, MetadataView, MetadataModel, MetadataCol
 
             beforeEach(function() {
                 spyOn(MetadataView, 'Editor');
+                spyOn(Editor.prototype, 'handleFieldChanged');
 
                 transcripts = new Editor({
                     el: $container

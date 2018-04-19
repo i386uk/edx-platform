@@ -141,7 +141,7 @@ function(Backbone, BaseView, _, MetadataModel, AbstractEditor, FileUpload, Uploa
 
         clear: function() {
             this.model.setValue('');
-            Backbone.trigger('transcripts:basicTabFieldChanged', this.model.getFieldName());
+            this.inputChange();
         },
 
         getData: function() {
@@ -149,7 +149,7 @@ function(Backbone, BaseView, _, MetadataModel, AbstractEditor, FileUpload, Uploa
         },
 
         inputChange: function() {
-            Backbone.trigger('transcripts:basicTabFieldChanged', this.model.getFieldName());
+            Backbone.trigger('transcripts:basicTabFieldChanged');
         }
     });
 

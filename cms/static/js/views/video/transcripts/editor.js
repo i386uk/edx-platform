@@ -34,7 +34,7 @@ function($, Backbone, _, Utils, MetadataView, MetadataCollection) {
 
             // Now `video_url` and `edx_video_id` viwes are rendered so
             // send a `check_transcript` request to get transctip status
-            Backbone.trigger('transcripts:basicTabFieldChanged');
+            this.handleFieldChanged();
         },
 
         /**
@@ -207,6 +207,10 @@ function($, Backbone, _, Utils, MetadataView, MetadataCollection) {
             edxVideoIdField.setValue(edxVideoId);
         },
 
+        getLocator: function() {
+            return this.$el.closest('[data-locator]').data('locator');
+        },
+
         handleFieldChanged: function() {
             var views = this.settingsView.views,
                 videoURLSView = views.video_url,
@@ -214,7 +218,7 @@ function($, Backbone, _, Utils, MetadataView, MetadataCollection) {
                 edxVideoIdData = edxVideoIdView.getData(),
                 videoURLsData = videoURLSView.getVideoObjectsList(),
                 data = videoURLsData.concat(edxVideoIdData),
-                locator = this.$el.closest('[data-locator]').data('locator');
+                locator = this.getLocator();
 
             Utils.command('check', locator, data)
                 .done(function(response) {

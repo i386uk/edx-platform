@@ -64,7 +64,7 @@ function($, Backbone, _, AbstractEditor, Utils, MessageManager) {
             this.$extraVideosBar = this.$el.find('.videolist-extra-videos');
 
             // Check current state of Timed Transcripts.
-            Backbone.trigger('transcripts:basicTabFieldChanged', fieldName);
+            Backbone.trigger('transcripts:basicTabFieldChanged');
         },
 
         updateOnCheckTranscriptSuccess: function(videoList, response) {
