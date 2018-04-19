@@ -318,6 +318,27 @@ class TestPhotoVerification(MockS3Mixin, ModuleStoreTestCase):
             self.assertIsNotNone(fourth_result)
             self.assertEqual(fourth_result, first_result)
 
+    def test_retire_user(self):
+        user = UserFactory.create()
+        attempt = SoftwareSecurePhotoVerification(user=user)
+        assert_equals(attempt.status, "created")
+
+        # Now let's fill in some values so that we can pass the mark_ready() call
+        attempt.mark_ready()
+        assert_equals(attempt.status, "ready")
+        attempt.status = "submitted"
+        attempt.approve()
+        assert_equals(attempt.name, 'fart')
+        assert_equals(attempt.photo_id_image_url, 'fart')
+        assert_equals(attempt.face_image_url, 'fart')
+        # name = "",
+        # photo_id_image_url = "",
+        # face_image_url = ""
+
+        # self.create_and_submit
+        # user = UserFactory.create()
+
+
 
 class VerificationDeadlineTest(CacheIsolationTestCase):
     """

@@ -435,6 +435,20 @@ class PhotoVerification(IDVerificationAttempt):
         self.status = "must_retry"
         self.save()
 
+    def retire_user(self):
+        """
+        Retire user data as a part of GDPR compliance
+        """
+        record_query = SoftwareSecurePhotoVerification.objects.filter(user=self.user)
+        if len(record_query) == 0:
+            return False
+        record_query.update(
+            name="",
+            photo_id_image_url="",
+            face_image_url=""
+        )
+        return True
+
 
 class SoftwareSecurePhotoVerification(PhotoVerification):
     """
