@@ -25,7 +25,6 @@ from edxnotes.helpers import (
     get_edxnotes_id_token,
     get_notes,
     is_feature_enabled,
-    delete_all_notes_for_user
 )
 from util.json_request import JsonResponse, JsonResponseBadRequest
 

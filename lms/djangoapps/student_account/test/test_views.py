@@ -29,7 +29,6 @@ from http.cookies import SimpleCookie
 from nose.plugins.attrib import attr
 from oauth2_provider.models import AccessToken as dot_access_token
 from oauth2_provider.models import RefreshToken as dot_refresh_token
-from provider.oauth2.models import Client
 from provider.oauth2.models import AccessToken as dop_access_token
 from provider.oauth2.models import RefreshToken as dop_refresh_token
 from testfixtures import LogCapture
