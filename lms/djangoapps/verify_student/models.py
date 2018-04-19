@@ -31,6 +31,7 @@ from django.utils.translation import ugettext_lazy
 from model_utils import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 from opaque_keys.edx.django.models import CourseKeyField
+from openedx.core.djangolib.model_mixins import DeletableByUserValue
 
 from lms.djangoapps.verify_student.ssencrypt import (
     encrypt_and_encode,
@@ -160,7 +161,7 @@ class SSOVerification(IDVerificationAttempt):
         )
 
 
-class PhotoVerification(IDVerificationAttempt):
+class PhotoVerification(IDVerificationAttempt, DeletableByUserValue):
     """
     Each PhotoVerification represents a Student's attempt to establish
     their identity by uploading a photo of themselves and a picture ID. An
@@ -439,15 +440,7 @@ class PhotoVerification(IDVerificationAttempt):
         """
         Retire user data as a part of GDPR compliance
         """
-        record_query = SoftwareSecurePhotoVerification.objects.filter(user=self.user)
-        if len(record_query) == 0:
-            return False
-        record_query.update(
-            name="",
-            photo_id_image_url="",
-            face_image_url=""
-        )
-        return True
+        return deletable_by user_value(value=user, field=user)
 
 
 class SoftwareSecurePhotoVerification(PhotoVerification):

@@ -320,23 +320,25 @@ class TestPhotoVerification(MockS3Mixin, ModuleStoreTestCase):
 
     def test_retire_user(self):
         user = UserFactory.create()
+        user.profile.name = u"Enrique"
+
         attempt = SoftwareSecurePhotoVerification(user=user)
-        assert_equals(attempt.status, "created")
-
-        # Now let's fill in some values so that we can pass the mark_ready() call
         attempt.mark_ready()
-        assert_equals(attempt.status, "ready")
         attempt.status = "submitted"
+        attempt.photo_id_image_url = "https://example.com/test/image/img.jpg"
+        attempt.face_image_url = "https://example.com/test/face/img.jpg"
         attempt.approve()
-        assert_equals(attempt.name, 'fart')
-        assert_equals(attempt.photo_id_image_url, 'fart')
-        assert_equals(attempt.face_image_url, 'fart')
-        # name = "",
-        # photo_id_image_url = "",
-        # face_image_url = ""
 
-        # self.create_and_submit
-        # user = UserFactory.create()
+        # Before Delete
+        assert_equals(attempt.name, user.profile.name)
+        assert_equals(attempt.photo_id_image_url, 'https://example.com/test/image/img.jpg')
+        assert_equals(attempt.face_image_url, 'https://example.com/test/face/img.jpg')
+
+        #
+        #
+        #3
+        #
+        #3
 
 
 
