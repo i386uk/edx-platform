@@ -440,7 +440,7 @@ class PhotoVerification(IDVerificationAttempt, DeletableByUserValue):
         """
         Retire user data as a part of GDPR compliance
         """
-        return deletable_by user_value(value=user, field=user)
+        return self.delete_by_user_value(value=self.user, field='user')
 
 
 class SoftwareSecurePhotoVerification(PhotoVerification):

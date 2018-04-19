@@ -334,12 +334,10 @@ class TestPhotoVerification(MockS3Mixin, ModuleStoreTestCase):
         assert_equals(attempt.photo_id_image_url, 'https://example.com/test/image/img.jpg')
         assert_equals(attempt.face_image_url, 'https://example.com/test/face/img.jpg')
 
-        #
-        #
-        #3
-        #
-        #3
-
+        # Attempt
+        self.assertTrue(attempt.retire_user())
+        # Reattempt
+        self.assertFalse(attempt.retire_user())
 
 
 class VerificationDeadlineTest(CacheIsolationTestCase):
