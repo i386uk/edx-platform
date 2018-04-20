@@ -976,7 +976,6 @@ def get_transcript_from_contentstore(video, language, output_format, transcripts
     language_prefix = '{}_'.format(language) if language else ''
     transcript_name = u'{}{}.{}'.format(language_prefix, base_name, output_format)
     transcript_content = Transcript.convert(transcript_content, input_format=input_format, output_format=output_format)
-
     if not transcript_content.strip():
         raise NotFoundError('No transcript content')
 
