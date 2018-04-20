@@ -922,7 +922,7 @@ class TestGetTranscript(SharedModuleStoreTestCase):
         UnicodeDecodeError('alieancodec', b'\x02\x01', 1, 2, 'alien codec found!')
     )
     @patch('xmodule.video_module.transcripts_utils.Transcript')
-    def test_get_transcript_content_store_exceptions(self, exception_to_raise, mock_Transcript):
+    def test_get_transcript_val_exceptions(self, exception_to_raise, mock_Transcript):
         """
         Verify that `get_transcript_from_val` function raises `NotFoundError` when specified exceptions raised.
         """
