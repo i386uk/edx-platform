@@ -161,12 +161,12 @@ class EnterpriseApiClient(object):
             LOGGER.exception(message)
             raise EnterpriseApiException(message)
 
-    def fetch_enterprise_learner_data(self, site, user):  # pylint: disable=unused-argument
+    def fetch_enterprise_learner_data(self, user):
         """
         Fetch information related to enterprise from the Enterprise Service.
 
         Example:
-            fetch_enterprise_learner_data(site, user)
+            fetch_enterprise_learner_data(user)
 
         Argument:
             site: (Site) site instance
@@ -426,7 +426,7 @@ def enterprise_customer_uuid_for_request(request):
     if not enterprise_customer_uuid and request.user.is_authenticated():
         # If there's no way to get an Enterprise UUID for the request, check to see
         # if there's already an Enterprise attached to the requesting user on the backend.
-        learner_data = get_enterprise_learner_data(request.site, request.user)
+        learner_data = get_enterprise_learner_data(request.user)
         if learner_data:
             enterprise_customer_uuid = learner_data[0]['enterprise_customer']['uuid']
 
@@ -456,7 +456,7 @@ def consent_needed_for_course(request, user, course_id, enrollment_exists=False)
     if request.session.get(consent_key) is False:
         return False
 
-    enterprise_learner_details = get_enterprise_learner_data(request.site, user)
+    enterprise_learner_details = get_enterprise_learner_data(user)
     if not enterprise_learner_details:
         consent_needed = False
     else:
