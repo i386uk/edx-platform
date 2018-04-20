@@ -1,3 +1,4 @@
+/* eslint-disable no-new */
 import { ReactRenderer } from 'ReactRenderer';
 import { StudentAccountDeletion } from './StudentAccountDeletion';
 

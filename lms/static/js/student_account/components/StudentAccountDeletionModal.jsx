@@ -54,19 +54,7 @@ class StudentAccountDeletionConfirmationModal extends React.Component {
     }).catch(error => this.failedSubmission(error));
   }
 
-  // TODO: hook into field validation somehow
   failedSubmission(error) {
-    // Temp. hack for local dev - start
-    const { password } = this.state;
-    if (password === 'yes') {
-      return this.setState({
-        accountQueuedForDeletion: true,
-        responseError: false,
-        responseErrorBody: {},
-      });
-    }
-    // Temp. hack for local dev - end
-
     const { status } = error;
     const title = status === 403 ? gettext('Password is incorrect') : gettext('Unable to delete account');
     const body = status === 403 ? gettext('Please re-enter your password.') : gettext('Sorry, there was an error trying to process your request. Please try again later.');
@@ -179,7 +167,7 @@ class StudentAccountDeletionConfirmationModal extends React.Component {
           <Button
             label={gettext('Cancel')}
             onClick={this.closeConfirmationModal}
-            className={["cancel-btn"]}
+            className={['cancel-btn']}
           />,
           <Button
             label={gettext('Yes, Delete')}
